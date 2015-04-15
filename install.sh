@@ -7,7 +7,7 @@ source required.sh
 if [ ! -f config.info ]; then
   echoex er "config.info file does not exist, creating..."
   touch config.info
-  echo -e "# Github Login\nuser=\"\"\npswd=\"\"\n\n# Github repository (must be non-existing)\nrepo=\"\"\n\n# DO NOT EDIT BELOW\nauth_token=\"\"\nauth_note_suffix=\"0\"" > config.info
+  echo -e "# Github Login\nuser=\"\"\npswd=\"\"\n\n# Github repository (must be non-existing)\nrepo=\"\"\n\n# DO NOT EDIT BELOW" > config.info
   echoex ok "config.info file has been created"
   echoex er "Please supply information in the config.info file."
   exit
@@ -18,23 +18,32 @@ source config.info
 
 # Check config.info file vars if set
 # Only for github login and repository
-# Authorization tokens will be generated automatically
+# Auth token will be generated automatically
 if [ -z "$user" ] || [ -z "$pswd" ] || [ -z "$repo" ]; then
   echoex er "Please edit your config.info file and supply info for user, pswd, and repo variables."
   exit
 fi
 
-# Generate auth token to create repository
-if [ -z "$auth_create" ]; then
-  auth_create=$(curl -u $user:$pswd -d '{"scopes":["repo"], "note":"create_'"$auth_note_suffix"'"}' -X POST https://api.github.com/authorizations | jq -r ".token")
-  sed -i -e "s/auth_create=\"\"/auth_create=\"$auth_create\"/g" config.info
+# Check for var $auth_note_suffix
+if [ -z "$auth_note_suffix" ]; then
+  sed -i -e '/auth_note_suffix=/d' config.info
+  sed -i -e '$ a\
+    auth_note_suffix="0"' config.info
+fi
 
-  if [ ! $auth_create = "null" ]; then
+# Generate auth token to create and delete repository
+if [ -z "$auth_token" ]; then
+  auth_token=$(curl -u $user:$pswd -d '{"scopes":["repo","delete_repo"], "note":"gitfiti_'"$auth_note_suffix"'"}' -X POST https://api.github.com/authorizations | jq -r ".token")
+  sed -i -e '/auth_token=/d' config.info
+  sed -i -e '$ a\
+    auth_token="'"$auth_token"'"' config.info
+
+  if [ ! $auth_token = "null" ]; then
     echoex ok "Auth token to create has been set in config.info file."
   else
     echoex er "Auth token to create returns \"null\"."
     echoex ok "Changing auth_note_suffix..."
-    reset_auth_tokens create
+    reset_auth_token
   fi
 fi
 
