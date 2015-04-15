@@ -1,16 +1,17 @@
 #!/bin/bash
 
-# Include vars, functions
-source required.sh
-
 # Require first argument
 if [ -z "$1" ]; then
-  echoex er "Please supply the first parameter as your \"text\"."
+  echo ""
+  echo -e '\033[0;31mPlease supply the first parameter as your "text".\033[0m'
   exit
 fi
 
 # Set/clean text from first argument
 text=`echo "$1" | sed "s: :%20:g"`
+
+# Include vars, functions
+source required.sh
 
 # Check for config.info file
 if [ ! -f config.info ]; then
@@ -69,7 +70,7 @@ fi
 
 # Generate auth token to create and delete repository
 if [ -z "$auth_token" ]; then
-  auth_token=$(curl -u $user:$pswd -d '{"scopes":["repo","delete_repo"], "note":"gitfiti_'"$auth_note_suffix"'"}' -X POST https://api.github.com/authorizations | jq -r ".token")
+  auth_token=$(curl -u $user:$pswd -d '{"scopes":["repo","delete_repo"], "note":"gitfiti2_'"$auth_note_suffix"'"}' -X POST https://api.github.com/authorizations | jq -r ".token")
   sed -i -e '/auth_token=/d' config.info
   sed -i -e '$ a\
     auth_token="'"$auth_token"'"' config.info
@@ -79,7 +80,7 @@ if [ -z "$auth_token" ]; then
   else
     echoex er "Auth token returns \"null\"."
     echoex ok "Changing auth_note_suffix..."
-    reset_auth_token
+    reset_auth_token $1
   fi
 fi
 
