@@ -39,9 +39,9 @@ if [ -z "$auth_token" ]; then
     auth_token="'"$auth_token"'"' config.info
 
   if [ ! $auth_token = "null" ]; then
-    echoex ok "Auth token to create has been set in config.info file."
+    echoex ok "Auth token has been set in config.info file."
   else
-    echoex er "Auth token to create returns \"null\"."
+    echoex er "Auth token returns \"null\"."
     echoex ok "Changing auth_note_suffix..."
     reset_auth_token
   fi
@@ -81,4 +81,5 @@ rm -rf .repo
 
 echoex ok "Done."
 echoex ok "Please check your public github profile: https://github.com/$user"
+exhoex ok "To view your profile the way public can see it, view it in an incognito browser."
 echo
