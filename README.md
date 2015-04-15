@@ -46,8 +46,7 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
   cd ghvandalism
   ```
 
-2. Edit config.info file and provide your github username, password and repository.  The repository may exist, but it is recommended to provide a repository that does not exist yet.
-
+2. Edit config.info file and provide your github username, password and repository.
   ```
   # Github login
   user="timhtheos"
@@ -58,6 +57,8 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
   ```
   
   The `user` shall be the user as displayed in the URL, and not your email address.
+
+  The repository may exist, but it is recommended to provide a repository that does not exist yet. This is important should you provide an existing repository, it will be deleted in github, and it cannot be undone.
 
 3. Run `install.sh` file, and provide the first argument which serves as the text graffiti to be generated
   ```
