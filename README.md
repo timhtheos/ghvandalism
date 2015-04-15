@@ -72,7 +72,7 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
 
   The repository may exist, but it is recommended to provide a repository that does not exist yet. This is important should you provide an existing repository, it will be deleted in github, and it cannot be undone.
 
-4. Make sure that your install.sh file is executable
+4. Make sure that your install.sh file is executable (_this step may be removed as I have committed an `install.sh` having such permission_)
   ```
   chmod u+x install.sh
   ```
