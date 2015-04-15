@@ -72,6 +72,8 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
 
   The text shall not exceed 6 characters.  If you provide more than 6 characters, it won't throw an error, but the 7th and up will not appear in the graffiti.
 
+  If you provide 2 words, such as `@ 2015`, have them double quoted, e.g. **"@ 2015"**.  Also please note that a space ` ` is counted as one character.
+
 4. To change the text graffiti, just do step 3 again.
 
 ## Credits
