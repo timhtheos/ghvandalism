@@ -74,10 +74,11 @@ fi
 text=`echo "$1" | sed "s: :%20:g"`
 
 # Generate commits using 3rd party service
-curl "http://pokrovsky.herokuapp.com/$user/.repo/$text" | sed -e "/git pull/d" | sed -e "s/.repo.git/$repo.git/g" | bash
+curl "http://pokrovsky.herokuapp.com/$user/.repo/$text" | sed -e "s/git init .repo/echo; echo; echo -e \"Generating commits using service from pokrovsky.herokuapp.com.\"; echo; git init .repo; echo;/g" | sed -e "/git pull/d" | sed -e "s/.repo.git/$repo.git/g" | bash
 
 # Delete .repo dir
 rm -rf .repo
 
 echoex ok "Done."
 echoex ok "Please check your public github profile: https://github.com/$user"
+echo
