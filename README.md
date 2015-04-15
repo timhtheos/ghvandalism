@@ -68,6 +68,7 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
   If you provide 2 words, such as `@ 2015`, have them double quoted, e.g. **"@ 2015"**.  Also please note that a space ` ` is counted as one character.
 
   **Notice:**  The first time you run install.sh, it will do the following:
+
   2.1 It will ask you to input your github username, password, and repository.
     
     The `username` shall be the one from the URL of your github profile, not the email address associated to your account.
