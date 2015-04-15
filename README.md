@@ -8,8 +8,10 @@ Similar to [Gitfiti](https://github.com/gelstudios) and [Pokrovsky](http://pokro
 
 Text decorate your github account's commit history calendar by (blatantly) abusing git's ability to accept commits in the past, and in effect, creating a text-based graffiti.
 
-Example screenshot:
+**Example screenshots:**
+
 ![](https://www.evernote.com/shard/s479/sh/48cb6dd5-872d-440b-a0b3-81d9b3b0ec10/4f4d50637ba74824ba55c365c6f0f981/deep/0/timhtheos-(Timothy)---GitHub.png)
+![](https://www.evernote.com/shard/s479/sh/91d78147-eda8-4651-8612-678590ccf46e/780a094378f36db0e7532b9c76092fb8/deep/0/timhtheos-(Timothy)---GitHub.png)
 
 ## Background History
 
