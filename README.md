@@ -53,31 +53,7 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
   cd ghvandalism
   ```
 
-2. Initial run `install.sh` to generate a `config.info` file
-  ```
-  bash install.sh
-  ```
-
-3. Edit config.info file and provide your github username, password and repository.
-  ```
-  # Github login
-  user="timhtheos"
-  pswd="myPassword2015"
-  
-  # Github repository (must be non-existing)
-  repo="fake101"
-  ```
-  
-  The `user` shall be the user as displayed in the URL, and not your email address.
-
-  The repository may exist, but it is recommended to provide a repository that does not exist yet. This is important should you provide an existing repository, it will be deleted in github, and it cannot be undone.
-
-4. Make sure that your install.sh file is executable (_this step may be removed as I have committed an `install.sh` having such permission_)
-  ```
-  chmod u+x install.sh
-  ```
-
-5. Run `install.sh` file, and provide the first argument which serves as the text graffiti to be generated
+2. Run `install.sh` file with 1 argument
   ```
   bash install.sh <arg1>
   ```
@@ -87,11 +63,36 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
   bash install.sh ILOVEU
   ```
 
-  The text shall not exceed 6 characters.  If you provide more than 6 characters, it won't throw an error, but the 7th and up will not appear in the graffiti.
+  The text shall not exceed 6 characters.  If you provide more than 6 characters, it won't throw an error, but all characters after the 6th character won't appear in the graffiti.
 
   If you provide 2 words, such as `@ 2015`, have them double quoted, e.g. **"@ 2015"**.  Also please note that a space ` ` is counted as one character.
 
-6. To change the text graffiti, just do step 5 again.
+  **Notice:**  The first time you run install.sh, it will do the following:
+  2.1 It will ask you to input your github username, password, and repository.
+    
+    The `username` shall be the one from the URL of your github profile, not the email address associated to your account.
+
+    The repository, may not exist. But it is recommended that you provide a repositoy that does not exist yet. install.sh will delete existing repositories and replace it with an empty one. If you happen to set an existing important repository, it will be deleted, and it cannot be undone.
+
+    This prompt (asking for github credentials) happens once. Shold you decide to reset, just delete your `config.info` file.
+
+  2.2 It will create a config.info file and write in it the information you entered above.
+
+  2.3 It will generate github auth token, and set an initial auth_note_suffix to 0. In case auth_token failed, it will return `null` and `install.sh` will re-run itself, also passing the first argument used. It will continue to re-run until auth_token is generated. Each re-run, auth_note_suffix is incremented.
+  
+3. (OPTIONAL) Make sure that your install.sh file is executable
+  ```
+  chmod u+x install.sh
+  ```
+  
+  This has actually been committed in 66c42b66c0eeeacfbb4632b4966b052191527b5e, but just to make sure.
+
+4. To change the text graffiti, just do step 2 again.
+
+## Todos and Improvements
+
+  I shall catch curl error when it timeout.
+  Among others.
 
 ## Credits
 * [Gelstudios](https://github.com/gelstudios)' [Gitfiti](https://github.com/gelstudios/gitfiti)
