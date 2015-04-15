@@ -7,10 +7,37 @@ source required.sh
 if [ ! -f config.info ]; then
   echoex er "config.info file does not exist, creating..."
   touch config.info
-  echo -e "# Github Login\nuser=\"\"\npswd=\"\"\n\n# Github repository (must be non-existing)\nrepo=\"\"\n\n# DO NOT EDIT BELOW" > config.info
-  echoex ok "config.info file has been created"
-  echoex er "Please supply information in the config.info file."
-  exit
+  echoex ok "config.info file has been created, gathering information..."
+
+  # Gathering information
+  echoex ok "What is your github username shown in the URL?"
+  read user
+  echoex ok "What is your github password?"
+  read -s pswd
+  echoex ok "What is the repository name you want to create and use?"
+  read repo
+
+  # Writing them
+  function writeGitInfo() {
+    echoex ok "Writing them to config.info file..."
+    echo -e "# Github Login\nuser=\"$user\"\npswd=\"$pswd\"\n\n# Github repository (must be non-existing)\nrepo=\"$repo\"\n\n# DO NOT EDIT BELOW" > config.info
+    echoex ok "config.info file's variables have been set."
+  }
+  echoex er "Please review below:"
+
+  echo ""
+  echo "user: $user"
+  echo "pswd: $pswd"
+  echo "repo: $repo"
+  echo ""
+
+  echo "Are the github information above correct?"
+  select yn in "Yes" "No"; do
+    case $yn in
+      Yes ) writeGitInfo; break;;
+      No ) rm config.info; echoex er "Please re-run install.sh again to generate new config.info file."; exit; break;;
+    esac
+  done
 fi
 
 # Include config.info file
