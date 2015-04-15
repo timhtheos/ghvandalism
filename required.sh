@@ -28,14 +28,14 @@ function reset_auth_token() {
   sed -i -e '/auth_note_suffix=/d' config.info
   sed -i -e '$ a\
     auth_note_suffix="'"$auth_note_suffix"'"' config.info
-  echo ok "Auth note suffix has been changed."
+  echoex ok "Auth note suffix has been changed."
 
   sed -i -e '/auth_token=/d' config.info
   sed -i -e '$ a\
     auth_token=""' config.info
-  echo ok "Auth token has been emptied."
+  echoex ok "Auth token has been emptied."
 
   # Re-run to generate new auth token
-  echo ok "Restarting install..."
+  echoex ok "Restarting install..."
   bash install.sh
 }
