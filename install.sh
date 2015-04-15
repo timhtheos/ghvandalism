@@ -1,55 +1,13 @@
 #!/bin/bash
 
-# Vars
-color_highlight='\033[0;33m'
-color_error='\033[0;31m'
-color_none='\033[0m'
-
-# Echo
-function echoex() {
-  echo
-  if [ -z "$1" ] || [ -z "$2" ]; then
-    echo -e "${color_error}echoex(): Define first and second arguments.${color_none}"
-    exit
-  elif [ $1 = "ok" ]; then
-    echo -e "${color_highlight}${2}${color_none}"
-  elif [ $1 = "er" ]; then
-    echo -e "${color_error}${2}${color_none}"
-  else
-    echo -e "${color_error}echoex(): First param is limited to \"ok\" and \"er\" only.${color_none}"
-    exit
-  fi
-}
-
-# Reset Auth Note Suffix
-# In effect: Auth Tokens shall be empty
-function reset_auth_tokens() {
-  # Auth note suffix change (increment +1)
-  auth_note_suffix=$(($auth_note_suffix+1))
-  sed -i -e '/auth_note_suffix=/d' config.info
-  sed -i -e '$ a\
-    auth_note_suffix="'"$auth_note_suffix"'"' config.info
-  echo ok "Auth note suffix has been changed."
-
-  sed -i -e '/auth_create=/d' config.info
-  sed -i -e '$ a\
-    auth_create=""' config.info
-
-  sed -i -e '/auth_delete=/d' config.info
-  sed -i -e '$ a\
-    auth_delete=""' config.info
-
-  echo ok "Auth tokens to create and delete have been emptied."
-
-  # Re-run
-  bash install.sh
-}
+# Include vars, functions
+source required.sh
 
 # Check for config.info file
 if [ ! -f config.info ]; then
   echoex er "config.info file does not exist, creating..."
   touch config.info
-  echo -e "# Github Login\nuser=\"\"\npswd=\"\"\n\n# Github repository (must be non-existing)\nrepo=\"\"\n\n# DO NOT EDIT BELOW\nauth_create=\"\"\nauth_delete=\"\"\nauth_note_suffix=\"0\"" > config.info
+  echo -e "# Github Login\nuser=\"\"\npswd=\"\"\n\n# Github repository (must be non-existing)\nrepo=\"\"\n\n# DO NOT EDIT BELOW\nauth_token=\"\"\nauth_note_suffix=\"0\"" > config.info
   echoex ok "config.info file has been created"
   echoex er "Please supply information in the config.info file."
   exit
@@ -77,20 +35,6 @@ if [ -z "$auth_create" ]; then
     echoex er "Auth token to create returns \"null\"."
     echoex ok "Changing auth_note_suffix..."
     reset_auth_tokens create
-  fi
-fi
-
-# Generate auth token to delete repository
-if [ -z "$auth_delete" ]; then
-  auth_delete=$(curl -u $user:$pswd -d '{"scopes":["delete_repo"], "note":"delete_'"$auth_note_suffix"'"}' -X POST https://api.github.com/authorizations | jq -r ".token")
-  sed -i -e "s/auth_delete=\"\"/auth_delete=\"$auth_delete\"/g" config.info
-
-  if [ ! $auth_delete = "null" ]; then
-    echoex ok "Auth token to delete has been set in config.info file."
-  else
-    echoex er "Auth token to delete returns \"null\"."
-    echoex ok "Changing auth_note_suffix..."
-    reset_auth_tokens delete
   fi
 fi
 
