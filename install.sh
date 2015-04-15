@@ -3,6 +3,15 @@
 # Include vars, functions
 source required.sh
 
+# Require first argument
+if [ -z "$1" ]; then
+  echoex er "Please supply the first parameter as your \"text\"."
+  exit
+fi
+
+# Set/clean text from first argument
+text=`echo "$1" | sed "s: :%20:g"`
+
 # Check for config.info file
 if [ ! -f config.info ]; then
   echoex er "config.info file does not exist, creating..."
@@ -90,15 +99,6 @@ else
   echoex er "Cannot create repository."
   exit
 fi
-
-# Require first argument
-if [ -z "$1" ]; then
-  echoex er "Please supply the first parameter as your \"text\"."
-  exit
-fi
-
-# Set/clean text from first argument
-text=`echo "$1" | sed "s: :%20:g"`
 
 # Generate commits using 3rd party service
 curl "http://pokrovsky.herokuapp.com/$user/.repo/$text" | sed -e "s/git init .repo/echo \"\"; echo \"\"; echo -e \"Generating commits using service from pokrovsky.herokuapp.com.\"; echo \"\"; git init .repo; echo \"\";/g" | sed -e "/git pull/d" | sed -e "s/.repo.git/$repo.git/g" | bash
