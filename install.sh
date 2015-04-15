@@ -81,5 +81,5 @@ rm -rf .repo
 
 echoex ok "Done."
 echoex ok "Please check your public github profile: https://github.com/$user"
-exhoex ok "To view your profile the way public can see it, view it in an incognito browser."
+echoex ok "To view your profile the way public can see it, view it in an incognito browser."
 echo
