@@ -15,7 +15,7 @@ Example screenshot:
 
 [Gelstudios](https://github.com/gelstudios)' [Gitfiti](https://github.com/gelstudios/gitfiti) is written in python.  You have to fork it locally, and then run `gitfiti.py` and manually provide your github credentials there to generate commits.
 
-[Pokrovsky](http://pokrovsky.herokuapp.com/) is a web service that provides web API to generate a bash file that can be ran locally.
+[Pokrovsky](http://pokrovsky.herokuapp.com/) is a web service that provides web API to generate a bash file that can be ran locally. It owes a lot from Gitfiti.
 
 #### Limitations
 1. With gitfiti, it's python dependent, and you have to type your credentials each generate of the graffiti.
@@ -76,4 +76,4 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
 ## Credits
 * [Gelstudios](https://github.com/gelstudios)' [Gitfiti](https://github.com/gelstudios/gitfiti)
 * [Pokrovsky](http://pokrovsky.herokuapp.com/) web service
-* and the one who introduced me to gitfit
+* and the one who introduced me to gitfiti
