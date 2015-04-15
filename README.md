@@ -49,11 +49,16 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
 ## How to use
 1. Clone this repository
   ```
-  git clone --depth=1 git@github.com:timhtheos/ghvandalism.git
+  git clone --depth=1 https://github.com/timhtheos/ghvandalism.git
   cd ghvandalism
   ```
 
-2. Edit config.info file and provide your github username, password and repository.
+2. Initial run `install.sh` to generate a `config.info` file
+  ```
+  bash install.sh
+  ```
+
+3. Edit config.info file and provide your github username, password and repository.
   ```
   # Github login
   user="timhtheos"
@@ -67,7 +72,12 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
 
   The repository may exist, but it is recommended to provide a repository that does not exist yet. This is important should you provide an existing repository, it will be deleted in github, and it cannot be undone.
 
-3. Run `install.sh` file, and provide the first argument which serves as the text graffiti to be generated
+4. Make sure that your install.sh file is executable
+  ```
+  chmod u+x install.sh
+  ```
+
+5. Run `install.sh` file, and provide the first argument which serves as the text graffiti to be generated
   ```
   bash install.sh <arg1>
   ```
@@ -81,7 +91,7 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
 
   If you provide 2 words, such as `@ 2015`, have them double quoted, e.g. **"@ 2015"**.  Also please note that a space ` ` is counted as one character.
 
-4. To change the text graffiti, just do step 3 again.
+6. To change the text graffiti, just do step 5 again.
 
 ## Credits
 * [Gelstudios](https://github.com/gelstudios)' [Gitfiti](https://github.com/gelstudios/gitfiti)
