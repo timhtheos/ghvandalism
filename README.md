@@ -63,6 +63,10 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
   bash install.sh ILOVEU
   ```
 
+  **That's all you need to generate a text graffiti into your github public profile.**
+
+  But, you may want to read further for your information.
+
   The text shall not exceed 6 characters.  If you provide more than 6 characters, it won't throw an error, but all characters after the 6th character won't appear in the graffiti.
 
   If you provide 2 words, such as `@ 2015`, have them double quoted, e.g. **"@ 2015"**.  Also please note that a space ` ` is counted as one character.
