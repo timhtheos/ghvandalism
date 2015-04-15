@@ -37,5 +37,5 @@ function reset_auth_token() {
 
   # Re-run to generate new auth token
   echoex ok "Restarting install..."
-  bash install.sh
+  bash install.sh $1
 }
