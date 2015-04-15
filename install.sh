@@ -47,30 +47,26 @@ if [ -z "$auth_token" ]; then
   fi
 fi
 
-exit
 # Delete repository if it exists
 if curl -u $user:$pswd -X GET https://api.github.com/repos/$user/$repo | grep -q "full_name"; then
-  curl -H "Authorization: token $auth_delete" -X DELETE https://api.github.com/repos/$user/$repo
-  echo "Your github repository $repo has been deleted."
+  echoex er "Repository $repo exists, deleting..."
+  curl -H "Authorization: token $auth_token" -X DELETE https://api.github.com/repos/$user/$repo
+  echoex ok "Repository $repo has been deleted, re-creating..."
+else
+  echoex ok "Repository $repo does not exist, creating..."
 fi
 
-echo "Finished: DEL"
-
 # Create repository in github
-if curl -H "Authorization: token $auth_create" -d '{"name":"'"$repo"'"}' -X POST https://api.github.com/user/repos | grep "full_name"; then
-  echo "Your github repository $repo has been created."
+if curl -H "Authorization: token $auth_token" -d '{"name":"'"$repo"'"}' -X POST https://api.github.com/user/repos | grep "full_name"; then
+  echoex ok "Repository $repo has been created."
 else
-  echo "Cannot create repository."
+  echoex er "Cannot create repository."
   exit
 fi
 
-echo "Finished: CREATE"
-
-exit
-
 # Require first argument
 if [ -z "$1" ]; then
-  echo "Please supply the first parameter as your "text"."
+  echoex er "Please supply the first parameter as your \"text\"."
   exit
 fi
 
@@ -83,5 +79,5 @@ curl "http://pokrovsky.herokuapp.com/$user/.repo/$text" | sed -e "/git pull/d" |
 # Delete .repo dir
 rm -rf .repo
 
-echo "Done."
-echo "Please check your public github profile: https://github.com/$user"
+echoex ok "Done."
+echoex ok "Please check your public github profile: https://github.com/$user"
