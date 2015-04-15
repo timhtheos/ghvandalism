@@ -25,6 +25,10 @@ Text decorate your github account's commit history calendar by (blatantly) abusi
 
 #### Solution
 Automation - where both of them ends, this script begins.
+1. You supply your github credentials.
+2. This will pull Auth Token via github dev API with permission to create `repo` and `delete_repo`.
+3. This creates a repository in your github account, as well as deletes it when you generate new graffiti.
+4. This uses Pokrovsky web service. I opt to use this service vs using the original gitfiti.
 
 ## Use Case
 
