@@ -96,7 +96,7 @@ Unfortunately, I was not able to write pure bash to handle the automation.  This
 
 ## Todos and Improvements
 
-  I shall catch curl error when it timeout.
+  I shall catch curl error when it time's-out.
   Among others.
 
 ## Credits
