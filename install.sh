@@ -99,6 +99,7 @@ if curl -H "Authorization: token $auth_token" -d '{"name":"'"$repo"'"}' -X POST 
 else
   echoex er "Cannot create repository."
   exit
+  # The exit above is a black hole
 fi
 
 # Generate commits using 3rd party service
