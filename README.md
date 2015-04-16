@@ -24,7 +24,7 @@ Text decorate your github account's commit history calendar by (blatantly) abusi
 2. With Pokrovsky, it's much easier, but it does not (same with gitfiti) create and delete github repositories.
 
 #### Solution
-Automation - where both of them ends, this script begins.
+Automation - where both of them ends, this script continues on.
 
 1. You supply your github credentials.
 2. This will pull Auth Token via github dev API with permission to create `repo` and `delete_repo`.
